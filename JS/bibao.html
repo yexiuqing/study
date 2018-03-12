@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    for(var i = 0; i < 5; i++) {
+      console.log("1====" + i)
+    }
+    // 0,1,2,3,4
+    for(var i = 0; i < 5; i++) {
+      setTimeout(function(){
+        console.time("输出")
+        console.log("2====" + i , new Date().getSeconds())
+        console.timeEnd("输出")
+      }, 1000*i)
+    }
+    // 5 24
+    // 5 25 
+    // 5 26
+    // 5 27
+    // 5 28
+    for(var i = 0; i < 5; i++) {
+      (function(index){
+        setTimeout(function(){
+          console.log("3====" + index , new Date().getSeconds())
+        }, 1000*i)
+      })(i)
+    }
+    // 闭包实现
+    // 0 14
+    // 1 15 
+    // 2 16
+    // 3 17
+    // 4 18
+    for(var i = 0; i < 5; i++) {
+      
+        setTimeout((function(i){
+          console.log("4====" + i , new Date().getSeconds())
+        })(i), 1000*i)
+      
+    }
+  </script>
+</body>
+</html>

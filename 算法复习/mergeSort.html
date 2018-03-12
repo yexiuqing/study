@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function MergeSort(arr) {
+      if(arr.length<=1) {
+        return arr;
+      }
+      var middle = Math.floor(arr.length/2);
+  // slice(start, end)  返回数组中选定的元素，返回的是数组
+  // splice(index,....) 从数组中删除元素，返删除的元素数组
+      var left = arr.slice(0, middle)
+      var right = arr.slice(middle)
+      return Merge(MergeSort(left),MergeSort(right));
+    }
+    // 比较大小放入结果数组
+    function Merge (left, right) {
+      var result = [];
+      while(left.length && right.length) {
+        if(left[0] <= right[0]) {
+          result.push(left.shift())
+        } else {
+          result.push(right.shift())
+        }
+      }
+      while(left.length) {
+        result.push(left.shift())
+      }
+      while(right.length) {
+        result.push(right.shift())
+      }
+      return result;
+    }
+    var arr = [3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48];
+    console.time('归并排序耗时');
+    
+    console.log(MergeSort(arr));
+    console.timeEnd('归并排序耗时');
+    
+  </script>
+</body>
+
+</html>

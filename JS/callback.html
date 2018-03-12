@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 异步调用（例如读取文件，进行HTTP请求，等等）
+    // 时间监听器/处理器
+    // setTimeout和setInterval方法
+    // 一般情况：精简代码
+    function genericPoemMaker(name, gender) {
+      console.log(name + " is finer than wine.");
+      console.log("Altruistic and noble for the modern time.");
+      console.log("Always admirably adorned with the latest style.");
+      console.log("A " + gender + " of unfortunate tragedies who still manages a perpetual smileo")
+    }
+
+    function getUserInput(firstName, lastName, gender, callback) {
+      var fullName = firstName + " " + lastName;
+      if (typeof callback === 'function') {
+        callback(fullName, gender);
+      }
+    }
+    getUserInput('zhang', 'san', 'man', genericPoemMaker);
+    // ajax回调 也是一个异步操作
+    $.ajax({
+      url: 'aa.json',
+      type: 'GET',
+      data: {
+        username: $('#username').val()
+      },
+      dataType: "json",
+      beforeSend: function () {
+        //
+        console.log('ajax请求未发送的回调函数')
+      },
+      complete: function () {
+        console.log('ajax请求发送完毕的回调函数')
+      },
+      error: function () {
+        console.log('请求出错的回调函数')
+      },
+      success: function () {
+        console.log('请求成功后的回调函数')
+      }
+    })
+
+    function EventTarget() { 
+      this.handlers = {}; 
+    } 
+    EventTarget.prototype = { 
+      constructor: EventTarget,
+       
+      addHandler: function (type, handler) { 
+        this.handlers[type] = []; 
+      },
+       
+      fire: function () { 
+        if (!event.target) { 
+          event.target = this; 
+        } 
+        if (this.handlers[event.type instanceof Array]) { 
+          var handlers = this.handlers[event.type]; 
+          for (var i = 0, len = handlers.length; i < len; i++) { 
+            handlers[i](event); 
+          } 
+        } 
+      },
+       
+      removeHandler: function (type, handler) { 
+        if (this.handlers[type] instanceof Array) { 
+          var handlers = this.handlers[type]; 
+          for (var i = 0, le = handlers.length; i < len; i++) { 
+            if (handlers[i] === handler) { 
+              break; 
+            } 
+          } 
+          handlers.splice(i, 1); 
+        } 
+      } 
+    };
+  </script>
+</body>
+
+</html>
