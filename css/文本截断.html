@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    li {
+      list-style: none;
+    }
+
+    .content .list {
+      height: 30px;
+      width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* clip 修剪文本。|ellipsis 显示省略符号来代表被修剪的文本。|string  使用给定的字符串来代表被修剪的文本  */
+      white-space: nowrap;
+      /* white-space取值
+       normal	  默认。空白会被浏览器忽略。
+        pre	      空白会被浏览器保留。其行为方式类似 HTML 中的 <pre> 标签。
+        nowrap	  文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。
+        pre-wrap	保留空白符序列，但是正常地进行换行。
+        pre-line	合并空白符序列，但是保留换行符。
+        inherit	  规定应该从父元素继承 white-space 属性的值。 */
+      /* 说明：优点是内容可以为任何HTML元素，
+      包括超链接和图片等，在IE6中还会在结尾自动显示省略号。
+      缺点是必须指定宽度数值，并且宽度不能是百分数，否则在IE中会被认为是字符总长的百分比。 */
+    }
+
+    .content1 .list {
+      height: 52px;
+      width: 200px;
+      line-height: 1.5;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      /*  IE不支持box-orient
+        box-orient: horizontal|vertical|inline-axis|block-axis|inherit; 
+        horizontal	在水平行中从左向右排列子元素。	
+        vertical	  从上向下垂直排列子元素。	
+        inline-axis	沿着行内轴来排列子元素（映射为 horizontal）。	
+        block-axis	沿着块轴来排列子元素（映射为 vertical）。	
+        inherit	    应该从父元素继承 box-orient 属性的值
+      */
+      -webkit-line-clamp: 2;   /* 限制在一个块元素显示的文本的行数 */
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="content">
+    <li class="list">今天的北京正在下着大学。东方闪电金凤凰东方红你FVD发的军军军话费</li>
+    <li class="list">今天的北京正在下着大学。东方闪电金凤凰东群群群群群军军军如何给</li>
+    <li class="list">今天的北京正在下着大学。群群群群群群群群群群群军军军回合肥而非</li>
+    <li class="list">今天的北京正多多多多多多多多多多多多多多多多多多多多多多多多</li>
+  </ul>
+  <ul class="content1">
+    <li class="list">今天的北京正在下着大学。多多多多多jajaj多多多多多多</li>
+    <li class="list">今天的北京正的回复大家发的</li>
+    <li class="list">今天的北京正在下着大学。东方闪电金凤凰东方 群群群群军军军军军</li>
+  </ul>
+
+</body>
+
+</html>
