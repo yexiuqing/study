@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 原生ajax请求
+    function CreateXmlHttpRequest() {
+      var xmlHttpRequest;
+      // 标准浏览器创建XmHttpRequest对象
+      if (window.XMLHttpRequest) {
+        xmlHttpRequest = new XMLHttpRequest();
+      }
+      if (window.ActiveXObject) {
+        var activexName = ["MSXML2.XMLHttp", "Microsoft.XMLHTTP"];
+        for (var i = 0; i < activexName.length; i++) {
+          try {
+            xmlHttpRequest = new ActiveXObject(activexName[i]);
+            if (xmlHttpRequest) {
+              break;
+            }
+          } catch (e) {
+
+          }
+        }
+      }
+      return xmlHttpRequest;
+    }
+    //2.连接服务器
+    //open(方法、文件名、异步传输）
+    //方法：
+    //传输方式是get方式还是post方式。
+    //文件名
+    //告诉服务器要读哪个文件
+    //异步传输
+    //异步：多件事一件一件的做
+    //同步：多件事情一起进行
+    //但是js里面的同步和异步和现实的同步异步相反。
+    //同步：多件事一件一件的做
+    //异步：多件事情一起进行
+    //ajax天生是用来做异步的
+    function get() {
+      var req = CreateXmlHttpRequest();
+      if (req) {
+        req.open("GET", "http://test/？name=zhangsan", true)
+        //3.发送请求
+        req.send();
+        //4.接收返回 服务器端接受数据并处理，响应结果，在页面中通过执行回调函数 //相应的dom操作 
+        // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+        //客户端和服务器端有交互的时候会调用onreadystatechange      
+        req.onreadystatechange = function () {
+          if (req.readyState == 4) {
+            // {请求状态5个，0 = 未初始化，1 = 正在加载，2 = 加载完成，3 = 交互中，4 = 完成
+            if (req.status == 200) {
+              alert("success")
+            } else {
+              alert("error");
+            }
+          }
+        }
+      }
+    }
+    // readystate
+    //   0 - (未初始化)   还没有调用send()方法
+    //   1 - (正在加载)     已调用send()方法，正在发送请求
+    //   2 - (加载完成)      send()方法执行完成
+    //   3 - (交互)     正在解析响应内容
+    //   4 - (完成)     响应内容解析完成，可以在客户端调用了
+    // xmlhttp.status
+    // • 200 ＝ 服务器        成功返回网页
+    // • 301 ＝ 客户端所请求的 永久重定向   URL已移走，需要客户端重定向到其他URL
+    // • 302 ＝ 暂时性重定向
+    // • 304  ＝ 客户端所请求的       URL未发生变化
+    // • 400 =  服务器不理解请求的语法
+    // • 403 ＝ 客户端的请求被服务端       禁止
+    // 404 = 客户端所请求的URL在服务器端      不存在
+    // 500 ＝ 服务端在处理客户端请求时      发生异常
+    // 502 = 错误的网关
+
+    function post() {
+      var req = CreateXmlHttpRequest();
+      if (req) {
+        req.open('POST', "http://test/arr/", true);
+        req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=gbk;");
+        req.send("name=zhangsan&age=13");
+        req.onreadystatechange = function () {
+          if (req.readyState == 4) {
+            if (req.status == 200) {
+              alert('success');
+            } else {
+              alert('error');
+            }
+          }
+        }
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

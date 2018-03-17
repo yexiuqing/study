@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .item {
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at 100px 100px, #eee, #000);
+      border-radius: 100%;
+      -webkit-transform-style: preserve-3d;
+      -webkit-animation: run 2s linear infinite;
+    }
+
+    @-webkit-keyframes run {
+      100% {
+        -webkit-transform: rotateY(360deg);
+      }
+    }
+
+
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 400px auto;
+      /*border: 1px solid black;*/
+    }
+
+    .wave {
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .wave::before,
+    .wave::after {
+      content: "";
+      width: 400px;
+      height: 400px;
+      position: absolute;
+      /*border: 1px solid red;*/
+      top: -100%;
+      left: -50%;
+    }
+
+    .wave::before {
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 40%; //这两个伪类的外边框圆角都是经过推敲的，以达到视觉上完美的效果
+      animation: 10s rotate_before linear infinite;
+    }
+
+    .wave::after {
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: 46%;
+      animation: 10s rotate_after linear infinite;
+    }
+
+    @keyframes rotate_before {
+      from {
+        transform: translate(0%, 0%) rotate(0deg);
+      }
+      to {
+        transform: translate(0%, -60%) rotate(360deg);
+      }
+    }
+
+    @keyframes rotate_after {
+      from {
+        transform: translate(0%, 0%) rotate(0deg);
+      }
+      to {
+        transform: translate(0%, -60%) rotate(30deg); //这两个的旋转角度也是经过事先过很多次，和上面的圆角配合，才有了很好的视觉效果
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="item">
+    <span class="shdow"></span>
+  </div>
+  <div class="box">
+    <div class="wave"></div>
+  </div>
+</body>
+
+</html>

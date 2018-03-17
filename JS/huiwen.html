@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 字符串是否符合回文规则-
+    function palindrome(params) {
+      var str = '';
+      var len = params.length;
+      for (var i = len - 1; i >= 0; i--) {
+        str += params[i]
+      }
+      console.log(str == params)
+    }
+    // 字符串是否符合回文规则二
+    let palindrome1 = params => {
+      var len = params.length;
+      for (var i = 0; i < len; i++) {
+        if (params.charAt(i) !== params.charAt(len - i - 1)) {
+          console.log('不是回文')
+          break;
+        } else {
+          console.log('是回文')
+          break;
+        }
+      }
+    }
+    palindrome1('abcdefggfedcba');
+    palindrome('12344321');
+
+
+  </script>
+</body>
+
+</html>
