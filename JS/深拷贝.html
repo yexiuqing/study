@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 方法一
+    function deepCopy(obj, result) {
+      var result = result || {};
+      for (var prop in obj) {
+        if (typeof obj[prop] === 'object') {
+          if (obj[prop].constructor === Array) {
+            // 说明进行深拷贝的是一个数组
+            result[prop] = [];
+          } else {
+            result[prop] = {};
+          }
+          deepCopy(obj[prop], result[prop])
+        } else {
+          result[prop] = obj[prop]
+        }
+      }
+      return result
+    }
+
+
+    
+
+    // 浅拷贝
+    function shallowCopy(obj, result) {
+      var result = result || {};
+      for(var prop in obj) {
+        if(obj.hasOwnProperty(prop)) {
+          result[prop] = obj[prop]
+        }
+      }
+      return result;
+    }
+    
+    // var result = {};
+    var arr = [2, [4, 6, 7, [8, 1]], 66, [422, 0]];
+    var china = {
+      nation: '中国',
+      birthplaces: ['北京', '上海', '广州'],
+      skincolr: 'yellow',
+      friends: ['sk', 'ls']
+    }
+    // 方法二
+    var test1 =  JSON.parse(JSON.stringify(arr));
+
+    var shallowResult = shallowCopy(china)
+     document.write('<br/>' +'未更改' + JSON.stringify(china))
+     document.write('<br/>' +'浅拷贝结果'+ JSON.stringify(shallowResult))
+    shallowResult.nation = 'abc';     
+     document.write('<br/>' +'更改' + JSON.stringify(china))
+     document.write('<br/>' +'更改浅拷贝结果'+ JSON.stringify(shallowResult))
+    var output = deepCopy(arr)
+    var deepcopy = deepCopy(china)
+    document.write(JSON.stringify(output));
+    document.write('<br/>' + JSON.stringify(deepcopy));
+    document.write('<br/>' + JSON.stringify(test1));
+    document.write('<br/>' + '浅拷贝===='+ JSON.stringify(shallowResult));
+    
+  </script>
+</body>
+
+</html>
