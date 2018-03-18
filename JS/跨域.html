@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./jquery-3.3.1.min.map"></script>
+  <script>
+    // jsonp
+    // 原生实现
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.url = 'http://www.test.com:8080/login?user=admin&callback=onBack';
+    document.head.appendChild(script);
+    // 执行的回调函数
+    function onBack (res) {
+      console.log(JSON.stringify(res));
+    }
+
+    // jquery 实现
+    $.ajax({
+      url: 'http:/www.test.com:8080/login',
+      type: 'get',
+      dataType: 'jsonp',   // 请求方式为jsonp
+      jsonpCallback: 'onBack',   // 自定义回调函数名
+      data: {}
+    }) 
+    
+
+
+    
+  </script>
+</body>
+</html>
