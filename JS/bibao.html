@@ -22,10 +22,23 @@
         aLi[index].onclick = function () {
           alert(index)
         }
-
       })(i);
     }
 
+    // 非闭包的方式
+    for (var i = 0; i < aLi.length; i++) {
+      aLi[i].index = i;
+      aLi[i].onclick = function () {
+        alert(this.index)
+      }
+    }
+    
+    // jq实现
+    $(document).ready(function () {
+      $("#ul1 li").click(function () {
+        alert($(this).index());
+      })
+    })
 
 
 
