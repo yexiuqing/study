@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 原型链继承
+    function Person () {
+      this.age = 20;
+      this.weight = 50
+    }
+    function Man () {
+      this.sex = 'nan'
+    }
+    Man.prototype = new Person()
+    var zhangsan = new Man();
+    var lisi = new Man()
+    lisi.weight = 55
+    console.log(zhangsan.age)
+    console.log(lisi.weight)
+  </script>
+</body>
+</html>
