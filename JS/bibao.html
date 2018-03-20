@@ -100,6 +100,41 @@
       }
     }
     
+    $(document).ready(function () {
+      var a = {
+        name: 'zhangshan',
+        age: 28,
+        company: {
+          name: '腾讯',
+          address: '深圳',
+          size: 10000
+        }
+      };
+      var b = {
+        name: 'lisi',
+        age: 30,
+        company: {
+          name: '阿里巴巴',
+          address: '杭州'
+        },
+        stature: '172cm'
+      };
+      var c = $.extend(true, {}, a, b);   //深拷贝
+      console.log('a:' + JSON.stringify(a));
+      console.log('b:' + JSON.stringify(b));
+      console.log('c:' + JSON.stringify(c));
+    });
+     // jQuery.extend( [ deep ], target, [ object1 ], [ objectN ] )
+    //   描述：合并两个或更多的对象的内容汇集成到第一个对象。
+    //     • deep：如果是true，合并成为递归（又叫做深拷贝）。
+    //     • target：一个对象，如果附加的对象被传递给这个方法将那么它将接收新的属性，如果它是唯一的参数将扩展 jQuery 的命名空间。
+    //     • object1：一个对象，它包含额外的属性合并到第一个参数
+    //   objectN：包含额外的属性合并到第一个参数
+
+    // jQuery中的$.extend浅拷贝，拷贝对象A时，对象B将拷贝A的所有字段，如果字段是内存地址，B将拷贝地址，若果字段是基元类型，B将复制其值。
+    // 它的缺点是如果你改变了对象B所指向的内存地址，你同时也改变了对象A指向这个地址的字段。
+    // jQuery中的$.extend深拷贝，这种方式会完全拷贝所有数据，优点是B与A不会相互依赖（A,B完全脱离关联）， 
+    // 缺点是拷贝的速度更慢，代价更大
   </script>
 </body>
 

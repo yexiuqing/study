@@ -8,20 +8,66 @@
 </head>
 <body>
   <script>
+  
     // 原型链继承
     function Person () {
       this.age = 20;
-      this.weight = 50
+      this.weight = [89,33];
     }
     function Man () {
       this.sex = 'nan'
     }
-    Man.prototype = new Person()
-    var zhangsan = new Man();
+    Man.prototype = new Person();
+    var man1 = new Man()
     var lisi = new Man()
-    lisi.weight = 55
-    console.log(zhangsan.age)
-    console.log(lisi.weight)
+    lisi.weight.push(50)
+    console.log(man1.age)
+    console.log(man1.weight)
+
+    // 构造函数继承
+    function Person1(val) {
+      this.val = val;
+      this.arr = [55,3]
+      this.fun = function () {
+        console.log("person 构造函数执行")
+      }
+    }
+    function Boy (str) {
+      Person1.call(this, str)
+    }
+    var boy = new Boy(23)
+    var boy1 = new Boy(1)
+    boy.arr.push(4)
+    console.log(boy.arr)
+    console.log(boy1.arr)
+
+    // 组合继承方式
+
+  function Person2() {
+    this.val = 22;
+    this.arr = [99,33]
+  }
+  Person2.prototype.fun1 = function() {
+    console.log("执行fun1")
+  }
+  Person2.prototype.fun2 = function() {
+    console.log("执行fun2")
+  }
+  function Gril () {
+    Person2.call(this)
+  }
+  Gril.prototype = new Person2();
+  var gril = new Gril();
+  var lisa = new Gril();
+  gril.fun1()
+  gril.fun2()
+  console.log(gril.fun1 === lisa.fun1)
+
+  
+
+
+
+
   </script>
 </body>
 </html>
