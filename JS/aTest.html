@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-</head>
-<body>
-  <script>
-    function test(arr, len, index) {
-      arr.sort();
-      console.log(arr[index-1])     
+  <style>
+    div {
+      height: 2000px;
+      background: #eee;
     }
-    test([1, 2, 1, 2, 1, 3],2 ,6)
+  </style>
+</head>
+
+<body>
+  <div>
+
+  </div>
+  <script>
+
+    window.onscroll = function () {
+      //lazyload();
+      debounce(lazyload, window);
+    };
+
+    function debounce(method, context) {
+      clearTimeout(method.timeout);
+      method.timeout = setTimeout(function () {
+        method.call(context);
+      }, 500);
+    }
+
+    function lazyload() {
+      console.log("scroll执行了" + scrollnum);
+    }
   </script>
 </body>
+
 </html>

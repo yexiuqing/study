@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    div {
+      height: 2000px;
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+
+  </div>
+  <script>
+    window.onscroll = function () {
+      //lazyload();
+      debounce(lazyload, window);
+    };
+
+    function debounce(method, context) {
+      clearTimeout(method.timeout);
+      method.timeout = setTimeout(function () {
+        method.call(context);
+      }, 500);
+    }
+
+    function lazyload() {
+      console.log("scroll执行了");
+    }
+    // 利用定时器，让函数执行延迟500毫秒，在500毫秒内如果有函数又被调用则删除上一次调用，这次调用500毫秒后执行，如此往复
+
+
+    function throttle(method, context) {
+      clearTimeout(method.tId);
+      method.tId = setTimeout(function () {
+        method.call(context);
+      }, 100);
+    }
+    //调用
+    window.onresize = function () {
+      throttle(myFunc, window);
+    }
+
+    //法二：
+    var throttle = function (fn, delay) {
+      var timer = null;
+      return function () {
+        var context = this,
+          args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fn.apply(context, args); //context调用fn的方法，指针指向了fn
+        }, delay);
+      }
+    }
+    //调用
+    window.onresize = throttle(myFunc, 100);
+
+    function myFunc() {
+      console.log('字节流')
+    }
+  </script>
+</body>
+
+</html>
