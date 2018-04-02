@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /* 
+     *二叉树的节点对象 
+     */
+    function Node() {
+      this.text = ''; //节点的文本  
+      this.leftChild = null; //节点的左孩子引用  
+      this.rightChild = null; //节点右孩子引用  
+    }
+    var charecters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+      'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+    ];
+
+    function buildTree(node, i) {
+      var leftIndex = 2 * i + 1, //左孩子节点的索引  
+        rightIndex = 2 * i + 2; //右孩子节点的索引  
+      if (leftIndex < charecters.length) { //判断索引的长度是否超过了charecters数组的大小  
+        var childNode = new Node(); //创建一个新的节点对象  
+        childNode.text = charecters[leftIndex]; //给节点赋值  
+        node.leftChild = childNode; //给当前节点node加入左孩子节点  
+        buildTree(childNode, leftIndex); //递归创建左孩子  
+      }
+      if (rightIndex < charecters.length) { //下面注释参照上面的构建左孩子的节点  
+        var childNode = new Node();
+        childNode.text = charecters[rightIndex];
+        node.rightChild = childNode;
+        buildTree(childNode, rightIndex);
+      }
+    }
+    //下面构造二叉树  
+    var node = new Node();
+    node.text = charecters[0];
+    buildTree(node, 0); //索引i是从0开始构建
+
+    // 非递归键二叉树
+    var root;
+
+    function createBinaryTree() {
+      var len = charecters.length, //数组的长度  
+        index = 0, //索引从0开始  
+        nodes = new Array(); //创建一个临时数组，用于存放二叉树节点  
+      //循环创建二叉树节点存放到数组中  
+      for (var i = 0; i < charecters.length; i++) {
+        var node = new Node();
+        node.text = charecters[i];
+        nodes.push(node);
+      }
+      //循环建立二叉树子节点的引用  
+      while (index < len) {
+        var leftIndex = 2 * index + 1, //当前节点左孩子索引  
+          rightIndex = 2 * index + 2; //当前节点右孩子索引  
+        //给当前节点添加左孩子  
+        nodes[index].leftChild = nodes[leftIndex];
+        //给当前节点添加右孩子  
+        nodes[index].rightChild = nodes[rightIndex];
+        index++;
+      }
+      root = nodes[0];
+    }
+    // 先序递归遍历
+    function firstIteration(node) {
+      if (node.leftChild) { //判断当前节点是否有左孩子  
+        firstIteration(node.leftChild); //递归左孩子  
+      }
+      if (node.rightChild) { //判断当前节点是否有右孩子  
+        firstIteration(node.rightChild); //递归右孩子  
+      }
+    }
+    //递归遍历二叉树  
+    firstIteration(root);
+
+    // 非递归先序遍历
+    function notFirstIteration(node) {
+      var stack = new Stack(), //开辟一个新的栈对象  
+        resultText = ''; //存放非递归遍历之后的字母顺序  
+      stack.push(root); //这个root在上面非递归方式构建二叉树的时候已经构建好的  
+
+      var node = root;
+      resultText += node.text;
+      while (!stack.isEmpty()) {
+        while (node.leftChild) { //判断当前节点是否有左孩子节点  
+          node = node.leftChild; //取当前节点的左孩子节点  
+          resultText += node.text; //访问当前节点  
+          stack.push(node); //将当前节点压入栈中  
+        }
+        stack.pop(); //出栈  
+        node = stack.pop().rightChild; //访问当前节点的兄弟节点（右孩子节点）  
+        if (node) { //当前节点的兄弟节点不为空  
+          resultText += node.text; //访问当前节点  
+          stack.push(node); //将当前节点压入栈中  
+        } else { //当前节点的兄弟节点为空     
+          node = stack.pop(); //在回溯到上一层  
+        }
+      }
+    }
+    //非递归先序遍历  
+    notFirstIteration(root);
+
+    // 中序递归遍历
+    var strText = "";
+
+    function secondIteration(node) {
+      //访问左节点  
+      if (node.leftChild) {
+        if (node.leftChild.leftChild) {
+          secondIteration(node.leftChild);
+        } else {
+          strText += node.leftChild.text;
+        }
+      }
+      //访问根节点  
+      strText += node.text;
+      //访问右节点  
+      if (node.rightChild) {
+        if (node.rightChild.leftChild) {
+          secondIteration(node.rightChild);
+        } else {
+          strText += node.rightChild.text;
+        }
+      }
+    }
+    secondIteration(root);
+    alert(strText);
+    // 非递归中序遍历
+    function notSecondIteration() {
+      var resultText = '',
+        stack = new Stack(),
+        node = root;
+      stack.push(node);
+
+      while (!stack.isEmpty()) {
+        //从根节点一直往下找左孩子节点直到最后一个左孩子节点，然后保存在栈中  
+        while (node.leftChild) {
+          node = node.leftChild;
+          stack.push(node);
+        }
+        //弹出栈  
+        var tempNode = stack.pop();
+        //访问临时节点  
+        resultText += tempNode.text;
+        if (tempNode.rightChild) {
+          node = tempNode.rightChild;
+          stack.push(node);
+        }
+      }
+      alert(resultText);
+    }
+    // 递归后续遍历
+    var strText = '';
+
+    function lastIteration(node) {
+      //首先访问左孩子节点  
+      if (node.leftChild) {
+        if (node.leftChild.leftChild) {
+          lastIteration(node.leftChild);
+        } else {
+          strText += node.leftChild.text;
+        }
+      }
+      //然后再访问右孩子节点  
+      if (node.rightChild) {
+        if (node.rightChild.rightChild) {
+          lastIteration(node.rightChild);
+        } else {
+          strText += node.rightChild.text;
+        }
+      }
+      //最后访问根节点  
+      strText += node.text;
+    }
+    //中序递归遍历  
+    lastIteration(root);
+    alert(strText);
+    // 后序非递归
+    function notLastIteration() {
+      var strText = '',
+        stack = new Stack();
+      nodo = root;
+      stack.push(node);
+
+      while (!stack.isEmpty()) {
+        while (node.leftChild) {
+          node = node.leftChild;
+          stack.push(node);
+        }
+
+        //弹出栈  
+        var tempNode = stack.pop();
+        //访问左孩子节点  
+        strText += tempNode.text;
+        //访问右孩子节点  
+        if (tempNode.rightChild) {
+          if (tempNode.rightChild.leftChild || tempNode.rightChild.rightChild) { //判断最后一个左孩子节点的兄弟节点是否为页节点  
+            stack.push(tempNode.rightChild);
+          } else {
+            strText += tempNode.rightChild.text;
+          }
+        }
+      }
+      alert(strText);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 查找成功或者失败的时间复杂度均为O(log2(log2n))。
+    function InsertionSearch (arr, value, low, height) {
+      var middle = Math.floor(low + (value - arr[low])/(arr[height] - arr[low])*(height - low));
+      if(arr[middle] == value) {
+        return middle;
+      }
+      if(arr[middle] > value) {
+        return InsertionSearch(arr, value, low, middle-1)
+      } else {
+        return InsertionSearch(arr, value, middle+1, height)
+      }
+    }
+    var arr = [1, 4, 13, 24, 33, 56, 77, 78, 85, 98, 100];
+    console.log(InsertionSearch(arr, 56, 0, 10))
+
+    
+  </script>
+</body>
+</html>

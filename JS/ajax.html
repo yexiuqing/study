@@ -101,6 +101,25 @@
       }
     }
 
+    function CreateHttpRequest() {
+      var xmlHttpRequest;
+      if(window.XMLHttpRequest) {
+        xmlHttpRequest = new XMLHttpRequest()
+      }
+      if(window.ActiveXObject) {
+        var activexName = ['MSXML2.XMLHttp', "Microsoft.XMLHTTP"];
+        for(var i =0; i < activexName; i++) {
+          try{
+            xmlHttpRequest = new ActiveXObject(activexName[i])
+            if(xmlHttpRequest) {
+              break;
+            }
+          } catch(e) {
+
+          }
+        }
+      }
+    }
 
   </script>
 </body>

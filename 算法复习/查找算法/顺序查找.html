@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 顺序查找适合于存储结构为顺序存储或链接存储的线性表
+    function SequenceSearch(array, value) {
+      var len = array.length;
+      for (var i = 0; i < len; i++) {
+        if (arr[i] == value)
+          return i;
+      }
+      return -1;
+    }
+    var arr = [4, 33, 22, 9, 10, 28]
+    console.log(SequenceSearch(arr, 11));
+    // 复杂度分析：　
+    // 　　查找成功时的平均查找长度为：（假设每个数据元素的概率相等） ASL = 1/n(1+2+3+…+n) = (n+1)/2 ;
+    // 　　当查找不成功时，需要n+1次比较，时间复杂度为O(n);
+    // 　　所以，顺序查找的时间复杂度为O(n)。
+
+
+    function test(arr) {
+      var temp = arr;
+      var result = [];
+      for (var i = 0; i < arr.length; i++) {
+        temp[i].split('').reverse().join('')
+      }
+      for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < temp.length; j++) {
+          var t = [];
+          if (i !== j) {
+            if (arr[i] == temp[j]) {
+              t[0] = arr[i];
+              t[1] = arr[j]
+              result.push(t)
+            }
+
+          }
+        }
+      }
+      return result;
+    }
+    var arr = ['aba', 'aba', 'abc', 'cba', 'asd'];
+    console.log(test(arr))
+
+    function MaxMinPlus(arr) {
+      return Array.isArray(arr) ? Math.max.apply(Math, arr) - Math.min.apply(Math, arr) : console.log(
+        '传入的不是数组亦或者未能解决的错误')
+    }
+    var a = [1, 10, 11, -1, 12, 13, 14, 15, 2, 3, 4, 7, 8, 9]
+    MaxMinPlus(a)
+  </script>
+</body>
+
+</html>
