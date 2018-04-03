@@ -17,49 +17,76 @@
 </head>
 
 <body>
-  <input type="text" id="phone" onfocus="reSet()"/>
+  <input type="text" id="phone" onfocus="reSet()" />
   <input type="password" id="pass">
   <button id="num">发送验证码</button>
   <button id="submit">提交</button>
   <p id="tip"></p>
+  距离毕业时间还有
+  <span id='day'></span>
+  <span id='hour'></span>
+  <span id='minute'></span>
+  <span id='second'></span>
 
-</body>
-<script type="text/javascript">
-  var oPhone = document.getElementById('phone'),
-    oPass = document.getElementById('pass'),
-    oNum = document.getElementById("num"),
-    oTip = document.getElementById('tip');
-  var reg = /^1[35789]\d{9}$/;
-  oNum.onclick = function () {
-    if (oPhone.value) {
-      if (reg.test(oPhone.value)) {
-        oNum.disabled = true; //当点击后倒计时时候不能点击此按钮 
-        var time = 60; //倒计时5秒 
-        var timer = setInterval(fun1, 1000); //设置定时器 
-        function fun1() {
-          time--;
-          if (time >= 0) {
-            oNum.innerHTML = time + "s后重新发送";
-          } else {
-            oNum.innerHTML = "重新发送验证码";
-            oNum.disabled = false; //倒计时结束能够重新点击发送的按钮 
-            clearTimeout(timer); //清除定时器 
-            time = 60; //设置循环重新开始条件 
-          }
+
+  <script type="text/javascript">
+    var oPhone = document.getElementById('phone'),
+      oPass = document.getElementById('pass'),
+      oNum = document.getElementById('num'),
+      oTip = document.getElementById('tip')
+    var reg = /^1[3579]\d{9}$/
+    oNum.onclick = function () {
+      var time = 60;
+      if (oPhone.value) {
+        if (reg.test(oPhone.value)) {
+          oNum.disabled = true;
+          var timer = setInterval(() => {
+            time--;
+            if (time >= 0) {
+              oNum.innerHTML = time + 's后重新发送'
+            } else {
+              oNum.disabled = false;
+              oNum.innerHTML = '重新发送验证码'
+              clearTimeout(timer);
+            }
+          }, 1000)
+        } else {
+          oTip.innerHTML = 'please input correct phone number'
         }
-      } 
-      else {
-        oTip.innerHTML="手机号不符合规则"
+      } else {
+        oTip.innerHTML = 'Please input phone number'
       }
-    } else {
-      oTip.innerHTML="请输入手机号"
     }
-  }
-  function reSet() {
-    oTip.innerHTML=""
-  }
-</script>
-</script>
+
+    function reSet() {
+      oTip.innerHTML = '';
+    }
+
+    function countTime() {
+      var oDay = document.getElementById('day'),
+        oHour = document.getElementById('hour'),
+        oMinute = document.getElementById('minute'),
+        oSecond = document.getElementById('second');
+      var date = new Date();
+      var graduation = '2018/7/1 00:00:00',
+        now = date.getTime(), // 当前时间
+        endTime = new Date(graduation).getTime(), //截止的时间 
+        leftTime = endTime - now,
+        day, hour, minute, second;
+      if (leftTime > 0) {
+        day = Math.floor(leftTime / 1000 / 60 / 60 / 24);
+        hour = Math.floor(leftTime / 1000 / 60 / 60 % 24)
+        minute = Math.floor(leftTime / 1000 / 60 % 60)
+        second = Math.floor(leftTime / 1000 % 60)
+      }
+      oDay.innerHTML = day + '天';
+      oHour.innerHTML = hour + '时';
+      oMinute.innerHTML = minute + '分';
+      oSecond.innerHTML = second + '秒'
+      setTimeout(countTime,1000);
+    }
+    countTime();
+  </script>
 </body>
 
 </html>
