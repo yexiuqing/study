@@ -9,3 +9,10 @@ git commit -m 'delete .idea dir'
 git push -u origin master
 
 ```
+##### 这样的方式会把本地的文件删了，慎用啊
+```
+sudo rm -rf dir
+git add -A
+git commit -m 'remove dir'
+git push origin master
+```
