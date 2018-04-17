@@ -35,7 +35,11 @@
     palindrome1('abcdefggfedcba');
     palindrome('12344321');
 
-
+    // 方法3
+    function isPalindrome(str) {
+      str = str.replace(/\W/,'').toLowerCase();
+      return str == str.splice(' ').reverse()
+    }
   </script>
 </body>
 

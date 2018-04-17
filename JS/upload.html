@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <form id="form" method="post" enctype="multipart/form-data">
+    <input type="file" id="input">
+  </form>
+  <button id="button">获取内容</button>
+  <div class="File">添加附件</div>
+  <input id="upfile" name="upfile" type="file" multiple="multiple" />
+  <div class="FileArea"></div>
+
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript">
+    $("#button").click(function () {
+      console.log(document.getElementById("input").files[0]);
+    });
+
+
+    var str = "";
+    $("#upfile").click();
+    $("#upfile").on("change", function () {
+      var obj = document.getElementById("upfile");
+      var length = obj.files.length;
+      for (var i = 0; i < length; i++) {
+        $(".FileArea").html("");;
+        var temp = obj.files[i].name;
+        str += "<div>" + temp + "</div>";
+      }
+      $(".FileArea").append(str);
+    });
+  </script>
+</body>
+
+</html>
