@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 判断是素数
+    function test1(num) {
+      var flag = 1;
+      for(var i = 2; i <= Math.sqrt(num); i++) {
+        if(num % i == 0) {
+          flag = 0;
+          break;
+        }
+      }
+      if(i> Math.sqrt(num)) {
+        console.log(num + "sushu")
+      }
+      if(num == 1 || flag == 0) {
+        console.log('不是素数')
+      } 
+      
+    }
+    // 输出2-n之间的素数
+    function test2 (num1, num2) {
+      for(var i = num1; i < num2; i++) {
+        for(var j = 2;  j <= Math.sqrt(i); j++) 
+        {
+          if(i % j == 0) {
+            break;
+          } 
+          
+        }
+        if(j > Math.sqrt(i)) {
+            console.log(i)
+          }
+      }
+    }
+    test1(2);
+    test1(5);
+    test1(9)
+    test2(2,50)
+  </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var tree = {
+      text: 10,
+      left: {
+        text: 6,
+        left: {
+          text: 3,
+          left: null,
+          right: null
+        },
+        right: {
+          text: 8,
+          left: {
+            text: 7,
+            left: null,
+            right: null
+          },
+          right: null
+        }
+      },
+      right: {
+        text: 23,
+        left: {
+          text: 18,
+          left: null,
+          right: null
+        },
+        right: {
+          text: 27,
+          left: {
+            text: 25,
+            left: null,
+            right: null
+          },
+          right: {
+            text: 32,
+            left: null,
+            right: null
+          }
+        }
+      }
+    }
+    // 首先先创建一个辅助节点类Node,它初始化了三个属性：节点值，左孩子，有孩子。
+    class Node {
+      constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+      }
+    }
+    // 接着创建一个二叉搜索树类BST，它初始化了根节点为null。
+    class BST {
+      constructor() {
+        this.root = null;
+      }
+    }
+    // 1.insert(value):向树中插入一个节点值为value的节点。 
+    // 2.midOrderTraverse(callback)：中序遍历树，并将树中的每个节点传入callback回调函数里。 
+    // 3.preOrderTraverse(callback)：前序遍历树，并将树中的每个节点传入callback回调函数里。 
+    // 4.lastOrderTraverse(callback)：后序遍历树，并将树中的每个节点传入callback回调函数里。 
+    // 5. minNodeInTree()：查找树中节点值最小的节点。 
+    // 6. maxNodeInTree()：查找树中节点值最大的节点。 
+    // 7. searchNodeInTree():判断树中是否存在某个节点值为value的节点
+
+    function insert(value) {
+      var newNode = new Node(value); //实例化一个新节点
+      var root = this.root;
+      if (root == null) { //如果根节点不存在
+        this.root = newNode; //将这个新节点作为根节点
+      } else { //如果根节点存在
+        insertNode(root, newNode); //将这个新节点在根节点之后找到合适位置插入
+      }
+    }
+
+
+    /*
+     *函数名称：insertNode
+     *函数说明：将新节点newNode插入到node节点之后的合适位置
+     *函数参数：newNode,要插入的新节点
+     *        node,node节点
+     */
+    function insertNode(node, newNode) {
+      //如果newNode节点值小于node节点值，进入node节点左分支
+      if (newNode.value < node.value) {
+        //如果node节点左孩子为空
+        if (node.left == null) {
+          //将newNode赋给node节点左孩子，插入完毕。
+          node.left = newNode;
+        } else {
+          //如果node节点左孩子不为空，则继续向左孩子的左孩子递归
+          insertNode(node.left, newNode);
+        }
+      } else {
+        if (node.right == null) {
+          node.right = newNode;
+        } else {
+          insertNode(node.right, newNode);
+        }
+      }
+    }
+
+    //实现inorder遍历方法(左中右)
+    function inorder(node) {
+      if (node) {
+        inorder(node.left);
+        console.log(node.value);
+        inorder(node.right);
+      }
+    }
+
+    // 先序遍历(中左右)
+    function preorder(node) {
+      if (node) {
+        console.log(node.value);
+        preorder(node.left);
+        preorder(node.right);
+      }
+    }
+
+    // 后序遍历(左右中)
+    function postorder(node) {
+      if (node) {
+        preorder(node.left);
+        preorder(node.right);
+        console.log(node.value);
+      }
+    }
+    // 最大值为搜索树右下角的值，最小值为搜索树左下角的值，
+    // 查找树中节点值最大的节点
+    var maxNodeInTree = function (node) {
+      if (node) {
+        while (node && node.right !== null) {
+          node = node.right;
+        }
+        return node.value;
+      }
+      return null;
+    };
+    this.max = function () {
+      return maxNodeInTree(root);
+    }
+
+    // 查找树中节点值最小的节点
+    var minNodeInTree = function (node) {
+      if (node) {
+        while (node && node.left !== null) {
+          node = node.left;
+        }
+        return node.value;
+      }
+      return null;
+    };
+    this.min = function () {
+      return minNodeInTree(root);
+    }
+
+    // 查找任意值
+    var searchNode = function (node, value) {
+      if (node === null) {
+        return false;
+      }
+      if (value < node.value) {
+        return searchNode(node.left, value)
+      } else if (value > node.value) {
+        return searchNode(node.right, value)
+      } else {
+        return true;
+      }
+    };
+    this.search = function (value) {
+      return searchNode(root, value);
+    }
+
+    // 删除节点
+    var removeNode = function (node, value) {
+      if (node === null) {
+        return null;
+      }
+      if (value < node.value) {
+        node.left = remove(node.left, value)
+      } else if (value > node.value) {
+        node.left = remove(node.right, value)
+      }
+      // 键等于node.value
+      else {
+        //叶节点
+        if (node.left === null && node.right === null) {
+          node = null;
+          return node;
+        }
+        // 只有一个子节点的节点
+        if (node.left === null) {
+          node = node.right;
+          return node;
+        } else if (node.right === null) {
+          node = node.left;
+          return node;
+        }
+        // 有两个子节点的节点
+        var aux = findMinNode(node.right);
+        node.value = aux.value;
+        node.right = removeNode(node.right, aux.value);
+        return node;
+      }
+    }
+    this.remove = function (value) {
+      root = removeNode(root, value);
+    }
+    // 上面当删除节点有两个子节点时，需要调用辅助方法findMinNode
+    var minNodeSelf = function (node) {
+      if (node) {
+        while (node && node.left !== null) {
+          node = node.left;
+        }
+        return node;
+      }
+      return null;
+    };
+    this.findMinNode = function () {
+      return minNodeSelf(node);
+    }
+  </script>
+</body>
+
+</html>

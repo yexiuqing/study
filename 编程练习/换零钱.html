@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 马克思的手稿中有这样一道有趣的数学题：有30个人，其中有男人，女人，小孩。他们在一家饭馆中吃饭，共花费50先令。 
+    // 如果每个男人吃饭要花3先令，每个女人要花2先令， 每个小孩要花1先令，问男人，女人，小孩各多少人？
+    var man, woman, child;
+    for(man = 0; man < 17; man++) {
+      for(woman = 0; woman <= 25; woman++) {
+        child = 30 - woman - man;
+        if(man + woman + child == 30 && 3 * man + 2 * woman + child == 50) {
+          console.log(man + "-" + woman + "-" + child)
+        }
+      }
+    }
+
+    // 计算e=1+1/1！+1/2！+1/3！……+1/n！的前50项
+    var e=1, s=1;
+    for(var i = 0; i <= 50; i++) {
+      s = s*i
+      e = e + 1/s
+    }
+    console.log(e)
+
+
+    var a ='' + 88989779;
+    console.log(Array.from(a).length)
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function reserve(str) {
+      var temp = [];
+      var reserveStr = [];
+      var a = [];
+      var dst = '';
+      temp = str.split('');
+      for (var i = temp.length - 1; i >= 0; i--) {
+        reserveStr.push(temp[i])
+
+      }
+      for (var i = 0; i < temp.length; i++) {
+        a.unshift(temp[i])
+      }
+      for (var i = temp.length - 1; i >= 0; i--) {
+        dst += str.charAt(i);
+      }
+      console.log(reserveStr)
+      console.log(a)
+      console.log(dst)
+
+    }
+    reserve('asdfg')
+
+
+    function removeWithoutCopy(arr, item) {
+      var len = arr.length;
+      for (var i = 0; i < len; i++) {
+        if (arr[i] == item) {
+          arr.splice(i, 1)
+        }
+      }
+      return arr
+    }
+    console.log(removeWithoutCopy([2, 4, 6, 4, 8, 9, 12, 2], 2))
+  </script>
+</body>
+
+</html>

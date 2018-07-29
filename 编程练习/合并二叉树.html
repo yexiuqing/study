@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 树的结构
+    var tree1 = {
+      text: '8',
+      left: {
+        text: '5',
+        left: {
+          text: '3',
+          left: null,
+          right: null
+        },
+        right: {
+          text: 4,
+          left: null,
+          right: {
+            text: 7,
+            left: null,
+            right: null
+          }
+        }
+      },
+      right: {
+        text: '10',
+        left: {
+          text: '12',
+          left: null,
+          right: null
+        },
+        right: {
+          text: '15',
+          left: {
+            text: '17',
+            left: null,
+            right: null
+          },
+          right: {
+            text: '21',
+            left: null,
+            right: null
+          }
+        }
+      }
+    }
+    var tree2 = {
+      text: '7',
+      left: {
+        text: '4',
+        left: {
+          text: '0',
+          left: null,
+          right: null
+        }
+      },
+      right: {
+        text: '12',
+        left: {
+          text: '10',
+          left: {
+            text: '8',
+            left: null,
+            right: null
+          },
+          right: null
+        },
+        right: {
+          text: '15',
+          left: null,
+          right: null
+        }
+      }
+    }
+    // 合并两棵树
+    function mergeTree(tre1, tre2) {
+      if (tre1 == null && tre2 == null) {
+        return null;
+      } else {
+        if (tre1 == null) {
+          return tre2
+        }
+        if (tre2 == null) {
+          return tre1
+        }
+        tre1.text = parseInt(tre1.text == null ? 0 : tre1.text) + parseInt(tre2.text == null ? 0 : tre2.text);
+        tre1.left = mergeTree(tre1 == null ? null : tre1.left, tre2 == null ? null : tre2.left)
+        tre1.right = mergeTree(tre1 == null ? null : tre1.right, tre2 == null ? null : tre2.right)
+
+      }
+      return tre1;
+    }
+
+
+
+    function mergeTree2(tree1, tree2) {
+      if (tree1 == null && tree2 == null) {
+        return null;
+      } else {
+        if (tree1 == null) {
+          return tree2;
+        }
+        if (tree2 == null) {
+          return tree1
+        }
+        tree1.text = (tree1.text == null ? 0 : tree1.text) + (tree2.text == null ? 0 : tree2.text);
+        tree1.left = mergeTree2((tree1 == null ? null : tree1.left), (tree2 == null ? null : tree2.left));
+        tree1.right = mergeTree2((tree1 == null ? null : tree1.right), (tree2 == null ? null : tree2.right));
+        return tree1
+
+      }
+    }
+    var res = mergeTree(tree1, tree2);
+    console.log(res)
+  </script>
+</body>
+
+</html>

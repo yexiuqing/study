@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
-  
+  <script>
+    function unique3(array) {
+      var n = [array[0]]; //结果数组 
+      //从第二项开始遍历 
+      var result = []
+      for (var i = 1; i < array.length; i++) {
+        //如果当前数组的第i项在当前数组中第一次出现的位置不是i， 
+        //那么表示第i项是重复的，忽略掉。否则存入结果数组 
+        if (array.indexOf(array[i]) == i) {
+          n.push(array[i]);
+        } else {
+          // result为重复项数组结果
+          if(!result.includes(array[i]))
+            result.push(array[i])
+        }
+        
+      }
+      return n;
+    }
+    console.log(unique3([2, 4, 19, 4, 6, 33, 5, 4, 4, 2, 5, 3, 7, 3]))
+  </script>
 </body>
+
 </html>
